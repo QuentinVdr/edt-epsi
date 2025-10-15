@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Schedule {
+  id          String   @id @default(cuid())
+  userId      String
+  date        DateTime @db.Date
+  className   String
+  teacherName String
+  startTime   DateTime @db.Time
+  endTime     DateTime @db.Time
+  room        String
+  createdAt   DateTime @default(now())
+
+  @@index([userId, date])
+  @@index([userId, teacherName])
+}
